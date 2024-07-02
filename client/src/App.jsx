@@ -7,6 +7,8 @@ import MobileApp from './pages/MobileApp';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Header from './componants/Header';
+import PrivateRoute from './componants/PrivateRoute';
+import Dashboard from './pages/Dashboard';
 
 const App = () => {
   return (
@@ -15,6 +17,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/mobile-app" element={<MobileApp />} />
         <Route path="/about" element={<About />} />
