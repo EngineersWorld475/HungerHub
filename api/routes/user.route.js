@@ -1,6 +1,8 @@
 import express from 'express';
 import {
+  deleteUser,
   googleAuth,
+  signOutUser,
   signinController,
   signupController,
   updateUser,
@@ -14,4 +16,6 @@ router.post('/sign-up', signupController);
 router.post('/sign-in', signinController);
 router.post('/google', googleAuth);
 router.put('/update/:userId', verifyToken, updateUser);
+router.delete('/delete/:userId', verifyToken, deleteUser);
+router.post('/signout', signOutUser);
 export default router;

@@ -12,6 +12,7 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  signoutSuccess,
 } from '../redux/user/userSlice';
 import {
   getDownloadURL,
@@ -30,6 +31,7 @@ const DashProfile = () => {
   const [userUpdateFailed, setUserUpdateFailed] = useState(null);
   const [userUpdateSuccess, setUserUpdateSuccess] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [SignoutError, setSignoutError] = useState(null);
   const dispatch = useDispatch();
 
   const handleImage = (e) => {
@@ -87,6 +89,22 @@ const DashProfile = () => {
       }
     } catch (error) {
       deleteUserFailure(error.message);
+    }
+  };
+
+  const handleSignout = async () => {
+    try {
+      const res = await fetch(`/api/v4/user/signout`, {
+        method: 'POST',
+      });
+      const data = res.json();
+      if (!res) {
+        setSignoutError(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      setSignoutError(error.message);
     }
   };
 
@@ -205,7 +223,9 @@ const DashProfile = () => {
         <span onClick={() => setShowModal(true)} className="cursor-pointer">
           Delete account
         </span>
-        <span className="cursor-pointer">Sign out</span>
+        <span onClick={handleSignout} className="cursor-pointer">
+          Sign out
+        </span>
       </div>
       {userUpdateFailed && (
         <Alert color="failure" className="mt-5">

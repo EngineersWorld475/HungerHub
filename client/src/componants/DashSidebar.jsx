@@ -1,6 +1,6 @@
 import { Sidebar } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
-import { HiUser, HiArrowRight } from 'react-icons/hi';
+import { HiUser, HiArrowRight, HiDocumentText } from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
 
 const DashSidebar = () => {
@@ -27,6 +27,17 @@ const DashSidebar = () => {
               as={'div'}
             >
               Profile
+            </Sidebar.Item>
+          </Link>
+          <Link to={'/dashboard?tab=categories'}>
+            <Sidebar.Item
+              active={tab === 'categories'}
+              icon={HiDocumentText}
+              labelColor="dark"
+              className="cursor-pointer my-2"
+              as={'div'}
+            >
+              Categories
             </Sidebar.Item>
           </Link>
         </Sidebar.ItemGroup>
