@@ -51,23 +51,30 @@ export const signinController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password || email === '' || password === '') {
-      return res.status(404).json('Invalid credentials');
+      return res.status(400).send({
+        success: false,
+        message: 'All fields are required',
+      });
     }
 
-    const userCheck = await User.findOne({ email });
-    if (!userCheck) {
-      return res.status(403).json('User is not registered');
+    const validUser = await User.findOne({ email });
+    if (!validUser) {
+      return next(errorHandler(404, 'User is not registered'));
     }
-
-    const token = jwt.sign({ id: userCheck._id }, process.env.JWT_SECRET, {
+    const passwordCheck = bcryptjs.compareSync(password, validUser.password);
+    if (!passwordCheck) {
+      return next(errorHandler(400, 'Invalid credentials'));
+    }
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
       expiresIn: '1d',
     });
-    const passwordCheck = await bcryptjs.compare(userCheck.password, password);
-    if (!passwordCheck) {
-      return res.status(404).json('Invalid password');
-    }
-
-    // res.
+    const { password: pass, ...rest } = validUser._doc;
+    res
+      .status(200)
+      .cookie('access_token', token, {
+        httpOnly: true,
+      })
+      .json(rest);
   } catch (error) {
     next(error);
   }
