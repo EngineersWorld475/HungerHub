@@ -19,7 +19,7 @@ export const createFood = async (req, res, next) => {
       .split(' ')
       .join('-')
       .toLowerCase()
-      .replace(/[^a-zA-z0-9]/g, '-');
+      .replace(/[^a-zA-z0-10]/g, '-');
 
     const newFood = await new Food({
       ...req.body,
@@ -35,7 +35,7 @@ export const createFood = async (req, res, next) => {
 
 export const getAllFood = async (req, res, next) => {
   try {
-    const food = await Food.find({});
+    const food = await Food.find({}).limit(10);
     res.status(200).json(food);
   } catch (error) {
     next(error);
@@ -81,14 +81,24 @@ export const updateFood = async (req, res, next) => {
 export const deleteFood = async (req, res, next) => {
   try {
     if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-      next(errorHandler(403, 'You are not allowed to delete this food item'))
+      next(errorHandler(403, 'You are not allowed to delete this food item'));
     }
 
     await Food.findByIdAndDelete(req.params.foodId);
     res.status(200).json({
-      message: 'Food item deleted successfully'
-    })
+      message: 'Food item deleted successfully',
+    });
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
+
+export const showMore = async (req, res, next) => {
+  try {
+    const startIndex = req.params.start;
+    const items = await Food.find({}).skip(startIndex).limit(10);
+    res.status(200).json(items);
+  } catch (error) {
+    next(error);
+  }
+};

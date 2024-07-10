@@ -20,6 +20,7 @@ import {
   ref,
   uploadBytesResumable,
 } from 'firebase/storage';
+import { Link } from 'react-router-dom';
 const DashProfile = () => {
   const { existingUser, error } = useSelector((state) => state.hunguser);
   const [formData, setFormData] = useState({});
@@ -218,6 +219,18 @@ const DashProfile = () => {
         <Button type="submit" gradientDuoTone={'pinkToOrange'} outline>
           Submit
         </Button>
+        {existingUser.isAdmin && (
+          <Link to={'/dashboard/create-food'}>
+            <Button
+              type="button"
+              gradientDuoTone={'purpleToBlue'}
+              outline
+              className="w-full"
+            >
+              Create food item
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="flex flex-row justify-between mt-5 text-red-500">
         <span onClick={() => setShowModal(true)} className="cursor-pointer">

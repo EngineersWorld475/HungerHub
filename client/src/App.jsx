@@ -11,6 +11,7 @@ import PrivateRoute from './componants/PrivateRoute';
 import Dashboard from './pages/Dashboard';
 import PrivateAdminRoute from './componants/PrivateAdminRoute';
 import DashCategories from './componants/DashCategories';
+import CreateFood from './pages/CreateFood';
 
 const App = () => {
   return (
@@ -22,7 +23,9 @@ const App = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
-        <Route element={<PrivateAdminRoute />}></Route>
+        <Route element={<PrivateAdminRoute />}>
+          <Route path="dashboard/create-food" element={<CreateFood />} />
+        </Route>
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/mobile-app" element={<MobileApp />} />
         <Route path="/about" element={<About />} />

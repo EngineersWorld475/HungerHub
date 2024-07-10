@@ -147,10 +147,11 @@ const DashCategories = () => {
     getCategories();
   }, []);
   return (
-    <div className="p-5 min-h-screen max-w-3xl">
+    <div className="p-5 min-h-screen max-w-3xl md:mx-auto">
+      <h1 className="text-center text-3xl py-5 font-sans">Categories</h1>
       <Button
-        gradientDuoTone="purpleToPink"
-        className=""
+        color={'success'}
+        className="text-center w-full"
         onClick={() => setShowModal(true)}
         outline
       >
@@ -195,7 +196,7 @@ const DashCategories = () => {
             <img
               src={formData.categoryImage}
               alt="upload"
-              className="w-full h-40 object-cover"
+              className="w-30 h-20 object-cover"
             />
           )}
 
@@ -223,7 +224,7 @@ const DashCategories = () => {
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto h-14 w-14 text-gray-400" />
             <h3 className="text-xl text-gray-600">
-              Are you sure you want to delete this user?
+              Are you sure you want to delete this category?
             </h3>
             <div className="flex justify-center gap-2 mt-4">
               <Button color="failure" onClick={handleDelete}>
@@ -243,18 +244,18 @@ const DashCategories = () => {
             <Table className="my-5">
               <Table.Head>
                 <Table.HeadCell>Date updated</Table.HeadCell>
-                <Table.HeadCell>Category</Table.HeadCell>
                 <Table.HeadCell>Category image</Table.HeadCell>
+                <Table.HeadCell>Category</Table.HeadCell>
                 <Table.HeadCell>Delete</Table.HeadCell>
               </Table.Head>
               {categories.map((cat) => {
                 return (
                   <Table.Body>
                     <Table.Row>
-                      <Table.Cell>
+                      <Table.Cell className="text-center">
                         {new Date(cat.updatedAt).toLocaleDateString()}
                       </Table.Cell>
-                      <Table.Cell>
+                      <Table.Cell className="items-center">
                         <img
                           src={cat.categoryImage}
                           alt="categoryPhoto"
@@ -265,15 +266,15 @@ const DashCategories = () => {
                         {cat.categoryName}
                       </Table.Cell>
                       <Table.Cell>
-                        <button
-                          className="bg-red-700 px-3 py-1 text-white"
+                        <Button
+                          color="failure"
                           onClick={() => {
                             setShowConfirm(true);
                             setCatId(cat._id);
                           }}
                         >
                           Delete
-                        </button>
+                        </Button>
                       </Table.Cell>
                     </Table.Row>
                   </Table.Body>
