@@ -2,10 +2,12 @@ import { Sidebar } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { HiUser, HiArrowRight, HiDocumentText } from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const DashSidebar = () => {
   const location = useLocation();
   const [tab, setTab] = useState('');
+  const { existingUser } = useSelector((state) => state.hunguser);
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get('tab');
@@ -29,17 +31,19 @@ const DashSidebar = () => {
               Profile
             </Sidebar.Item>
           </Link>
-          <Link to={'/dashboard?tab=categories'}>
-            <Sidebar.Item
-              active={tab === 'categories'}
-              icon={HiDocumentText}
-              labelColor="dark"
-              className="cursor-pointer my-2"
-              as={'div'}
-            >
-              Categories
-            </Sidebar.Item>
-          </Link>
+          {existingUser.isAdmin && (
+            <Link to={'/dashboard?tab=categories'}>
+              <Sidebar.Item
+                active={tab === 'categories'}
+                icon={HiDocumentText}
+                labelColor="dark"
+                className="cursor-pointer my-2"
+                as={'div'}
+              >
+                Categories
+              </Sidebar.Item>
+            </Link>
+          )}
         </Sidebar.ItemGroup>
         <Sidebar.ItemGroup>
           <Sidebar.Item

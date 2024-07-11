@@ -3,6 +3,7 @@ import { errorHandler } from '../utils/error.js';
 
 export const createCategory = async (req, res, next) => {
   try {
+    console.log(req.user);
     if (!req.user.isAdmin) {
       return next(errorHandler(403, 'You are not allowed to create category'));
     }
@@ -18,7 +19,9 @@ export const createCategory = async (req, res, next) => {
     });
     await result.save();
 
-    res.status(201).json(result);
+    return res
+      .status(201)
+      .json({ message: 'Category created successfully', result });
   } catch (error) {
     next(error);
   }
@@ -27,7 +30,7 @@ export const createCategory = async (req, res, next) => {
 export const getAllCategory = async (req, res, next) => {
   try {
     const categories = await Category.find({});
-    res.status(200).json(categories);
+    return res.status(200).json(categories);
   } catch (error) {
     next(error);
   }
@@ -50,7 +53,7 @@ export const updateCategory = async (req, res, next) => {
       { new: true }
     );
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (error) {
     next(error);
   }
@@ -65,7 +68,7 @@ export const deleteCategory = async (req, res, next) => {
     }
 
     await Category.findByIdAndDelete(req.params.categoryId);
-    res.status(200).json({ message: 'Category deleted successfully' });
+    return res.status(200).json({ message: 'Category deleted successfully' });
   } catch (error) {
     next(error);
   }

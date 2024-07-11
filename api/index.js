@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
 import cookieParser from 'cookie-parser';
 import categoryRouter from './routes/category.route.js';
+import foodRouter from './routes/food.route.js';
 const app = express();
 dotenv.config();
 app.use(express.json());
@@ -11,6 +12,7 @@ app.use(cookieParser());
 
 app.use('/api/v4/user', userRouter);
 app.use('/api/v4/category', categoryRouter);
+app.use('/api/v4/food', foodRouter);
 app.listen(5000, () => {
   console.log('server is running on port 5000!!!');
 });
