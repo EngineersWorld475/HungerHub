@@ -1,6 +1,7 @@
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Oath from '../componants/Oath';
 
 const Signup = () => {
   const [formData, setFormData] = useState({});
@@ -123,6 +124,7 @@ const Signup = () => {
                 'Sign up'
               )}
             </Button>
+            <Oath />
           </form>
           <div className="mt-3 text-blue-500">
             <span>Have an account?</span>

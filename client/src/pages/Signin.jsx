@@ -7,6 +7,7 @@ import {
   signinSuccess,
 } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Oath from '../componants/Oath';
 
 const Signin = () => {
   const [formData, setFormData] = useState({});
@@ -93,6 +94,7 @@ const Signin = () => {
                 'Sign in'
               )}
             </Button>
+            <Oath />
           </form>
           <div className="mt-3 text-blue-500">
             <span>Don't have an account?</span>

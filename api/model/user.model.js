@@ -18,11 +18,14 @@ const userSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      required: true,
     },
     phone: {
       type: String,
-      required: true,
+    },
+    profilePicture: {
+      type: String,
+      default:
+        'https://freerangestock.com/sample/118432/business-man-profile-vector.jpg',
     },
   },
   { timestamps: true }
