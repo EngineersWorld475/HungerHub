@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const CategorySlider = ({ data }) => {
   return (
-    <div className="flex flex-row gap-7 md:gap-4 scroll mb-5">
+    <div className="flex flex-row gap-7 md:gap-5 scroll mb-5">
       {data.map((item) => {
         return (
           <div
