@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 
 const Header = () => {
   const { existingUser } = useSelector((state) => state.hunguser);
-  console.log(existingUser);
   const path = useLocation().pathname;
   return (
     <Navbar className="border-b-3 py-5">
