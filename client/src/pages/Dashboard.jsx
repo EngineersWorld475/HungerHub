@@ -4,6 +4,7 @@ import DashSidebar from '../componants/DashSidebar';
 import DashProfile from '../componants/DashProfile';
 import DashCategories from '../componants/DashCategories';
 import DashFooitems from '../componants/DashFooitems';
+import Orders from './Orders';
 
 const Dashboard = () => {
   const location = useLocation();
@@ -27,6 +28,7 @@ const Dashboard = () => {
       {tab === 'profile' && <DashProfile />}
       {tab === 'categories' && <DashCategories />}
       {tab === 'foodItem' && <DashFooitems />}
+      {tab === 'orders' && <Orders />}
     </div>
   );
 };

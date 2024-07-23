@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useCart } from '../componants/context/cart';
 import { Select, Table, TableRow } from 'flowbite-react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
   const [cart, setCart] = useCart();
+  const navigate = useNavigate();
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
   const { existingUser } = useSelector((state) => state.hunguser);
@@ -14,6 +16,8 @@ const CartPage = () => {
     expiryDate: '',
     cvv: '',
   });
+
+  const foodItems = cart.map((c) => c._id);
 
   //handle quantity change
   const handleQuantityChange = (index, newQuantity) => {
@@ -59,16 +63,30 @@ const CartPage = () => {
     });
   };
 
-  const PaymentSubmit = () => {
-    console.log('Processing payment with method:', selectedPaymentMethod);
-    console.log('Payment details:', paymentDetails);
-    setIsModalOpen(false);
-    setPaymentDetails({
-      cardNumber: '',
-      expiryDate: '',
-      cvv: '',
-    });
+  const orderCreate = async () => {
+    try {
+      const res = await fetch(`/api/v4/order/create-order`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          foodItems,
+          buyer: existingUser._id,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setCart([]);
+        localStorage.removeItem('cart');
+        navigate('/dashboard?tab=orders');
+      } else {
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  console.log('.................', foodItems);
   return (
     <div className="min-h-screen min-w-3xl p-3 md:mx-auto">
       <>
@@ -238,7 +256,12 @@ const CartPage = () => {
                   <button
                     type="button"
                     className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-                    onClick={PaymentSubmit}
+                    onClick={orderCreate}
+                    disabled={
+                      !paymentDetails.cardNumber ||
+                      !paymentDetails.expiryDate ||
+                      !paymentDetails.cvv
+                    }
                   >
                     Submit Payment
                   </button>

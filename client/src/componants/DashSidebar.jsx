@@ -1,6 +1,7 @@
 import { Sidebar } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { HiUser, HiArrowRight, HiDocumentText } from 'react-icons/hi';
+import { FaClipboardList } from 'react-icons/fa';
 import { GiKnifeFork } from 'react-icons/gi';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -32,6 +33,19 @@ const DashSidebar = () => {
               Profile
             </Sidebar.Item>
           </Link>
+          {existingUser && (
+            <Link to={'/dashboard?tab=orders'}>
+              <Sidebar.Item
+                active={tab === 'orders'}
+                icon={FaClipboardList}
+                labelColor="dark"
+                className="cursor-pointer my-2"
+                as={'div'}
+              >
+                {existingUser.isAdmin ? 'Orders list' : 'My orders'}
+              </Sidebar.Item>
+            </Link>
+          )}
           {existingUser.isAdmin && (
             <Link to={'/dashboard?tab=categories'}>
               <Sidebar.Item
