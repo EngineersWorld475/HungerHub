@@ -10,7 +10,7 @@ app.listen(3000, () => {
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => {
-    console.log('mongodb is connected');
+    console.log('mongodb is connected successfully');
   })
   .catch((err) => {
     console.log(err);
