@@ -2,9 +2,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
+import cookieParser from 'cookie-parser';
 const app = express();
 dotenv.config();
 app.use(express.json());
+app.use(cookieParser());
+
 app.use('/api/v4/user', userRouter);
 app.listen(5000, () => {
   console.log('server is running on port 5000!!!');

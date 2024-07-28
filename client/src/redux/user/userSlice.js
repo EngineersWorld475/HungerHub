@@ -23,10 +23,29 @@ export const hungUserSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+    updateStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    updateSuccess: (state, action) => {
+      state.existingUser = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    updateFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
-export const { signinFailure, signinStart, signinSuccess } =
-  hungUserSlice.actions;
+export const {
+  signinFailure,
+  signinStart,
+  signinSuccess,
+  updateStart,
+  updateSuccess,
+  updateFailure,
+} = hungUserSlice.actions;
 
 export default hungUserSlice.reducer;
