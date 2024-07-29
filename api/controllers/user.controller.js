@@ -179,13 +179,25 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
+export const deleteUsers = async (req, res, next) => {
+  try {
+    if (!req.user.isAdmin) {
+      return next(errorHandler(403, 'You are not allowed to delete users'));
+    }
+    await User.findByIdAndDelete(req.params.userId);
+    return res.status(200).json('user deleted successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const deleteUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {
     next(errorHandler(403, 'You are not allowed to delete this user'));
   }
   try {
     await User.findByIdAndDelete(req.params.userId);
-    res.status(200).json({ message: 'User deleted successfully' });
+    return res.status(200).json({ message: 'User deleted successfully' });
   } catch (error) {
     next(error);
   }
@@ -206,6 +218,18 @@ export const getUser = async (req, res, next) => {
   try {
     const user = await User.find({ _id: req.params.userId });
     return res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllUsers = async (req, res, next) => {
+  try {
+    if (!req.user.isAdmin) {
+      return next(errorHandler(403, 'You are not eligible to get users list'));
+    }
+    const users = await User.find({}).sort({ createdAt: -1 });
+    return res.status(200).send(users);
   } catch (error) {
     next(error);
   }

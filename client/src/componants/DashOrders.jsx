@@ -75,7 +75,7 @@ const DashOrders = () => {
   return (
     <>
       <ToastContainer />
-      <div className="min-h-screen mx-5 p-3">
+      <div className="min-h-screen mx-auto">
         {allOrders && allOrders.length > 0 ? (
           <>
             <h1 className="text-center my-5 text-xl font-sans text-red-600">
@@ -85,47 +85,57 @@ const DashOrders = () => {
               <>
                 <div
                   key={order._id}
-                  className="flex flex-wrap gap-3 border border-green-500 p-2 mb-3"
+                  className="flex flex-wrap gap-10 mx-3 py-5 border border-green-500 p-2 mb-3"
                 >
                   <div className="flex flex-col">
                     <p className="text-center border border-yellow-300 p-1 rounded-2xl text-xs">
                       Created at
                     </p>
-                    <h1>
+                    <h1 className="my-5">
                       {new Date(order && order.updatedAt).toLocaleDateString()}
                     </h1>
                   </div>
                   <div className="flex flex-col">
                     <p className="text-center border border-yellow-300 p-1 rounded-2xl text-xs">
-                      user id
+                      user name
                     </p>
-                    <h1>{order.buyer}</h1>
+                    <h1 className="my-5">{order.buyer.username}</h1>
                   </div>
                   <div className="flex flex-col">
                     <p className="text-center border border-yellow-300 p-1 rounded-2xl text-xs">
                       Status
                     </p>
-                    <h1>{order.status}</h1>
+                    <h1 className="my-5">{order.status}</h1>
                   </div>
-                  {order.foodItems.map((item) => (
+                  {order.foodItems.map((item, index) => (
                     <>
                       <div key={item._id} className="flex flex-col">
                         <p className="text-center border border-yellow-300 p-1 rounded-2xl text-xs">
+                          food image
+                        </p>
+                        <img
+                          src={item.foodImage}
+                          className="w-14 h-14 bg-gray-500 rounded-full my-2"
+                          alt="foodImage"
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <p className="text-center border border-yellow-300 p-1 rounded-2xl text-xs">
                           food Name
                         </p>
-                        <h1>{item.foodName}</h1>
+                        <h1 className="my-5">{item.foodName}</h1>
                       </div>
                       <div className="flex flex-col">
                         <p className="text-center border border-yellow-300 p-1 rounded-2xl text-xs">
                           Restaurant
                         </p>
-                        <h1>{item.restaurant}</h1>
+                        <h1 className="my-5">{item.restaurant}</h1>
                       </div>
                     </>
                   ))}
                 </div>
                 <button
-                  className="px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white mb-2"
+                  className="px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white mb-2 mx-3"
                   onClick={() => {
                     setOpenEditModal(true);
                     setOrderId(order._id);

@@ -250,7 +250,7 @@ const DashCategories = () => {
               </Table.Head>
               {categories.map((cat) => {
                 return (
-                  <Table.Body>
+                  <Table.Body key={cat._id}>
                     <Table.Row>
                       <Table.Cell className="text-center">
                         {new Date(cat.updatedAt).toLocaleDateString()}

@@ -36,7 +36,10 @@ const Orders = () => {
                 <span className="text-red-500">status:</span> {order.status}
               </h1>
               {order.foodItems.map((foodItem) => (
-                <div className="flex flex-col md:flex-row items-center border-4 border-orange-400 p-3 mb-2 w-auto ">
+                <div
+                  key={foodItem._id}
+                  className="flex flex-col md:flex-row items-center border-4 border-orange-400 p-3 mb-2 w-auto "
+                >
                   <>
                     <img
                       src={foodItem.foodImage}

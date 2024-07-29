@@ -1,6 +1,11 @@
 import { Sidebar } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
-import { HiUser, HiArrowRight, HiDocumentText } from 'react-icons/hi';
+import {
+  HiUser,
+  HiArrowRight,
+  HiDocumentText,
+  HiUserGroup,
+} from 'react-icons/hi';
 import { FaClipboardList } from 'react-icons/fa';
 import { GiKnifeFork } from 'react-icons/gi';
 import { Link, useLocation } from 'react-router-dom';
@@ -82,6 +87,19 @@ const DashSidebar = () => {
                 as={'div'}
               >
                 Food items
+              </Sidebar.Item>
+            </Link>
+          )}
+          {existingUser.isAdmin && (
+            <Link to={'/dashboard?tab=users'}>
+              <Sidebar.Item
+                active={tab === 'users'}
+                icon={HiUserGroup}
+                labelColor="dark"
+                className="cursor-pointer my-2"
+                as={'div'}
+              >
+                Users
               </Sidebar.Item>
             </Link>
           )}

@@ -1,6 +1,8 @@
 import express from 'express';
 import {
   deleteUser,
+  deleteUsers,
+  getAllUsers,
   getUser,
   googleAuth,
   signOutUser,
@@ -20,4 +22,6 @@ router.put('/update/:userId', verifyToken, updateUser);
 router.delete('/delete/:userId', verifyToken, deleteUser);
 router.post('/signout', signOutUser);
 router.get('/get-user/:userId', verifyToken, getUser);
+router.get('/get-users', verifyToken, getAllUsers);
+router.delete('/delete-users/:userId', verifyToken, deleteUsers);
 export default router;

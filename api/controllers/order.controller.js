@@ -34,6 +34,7 @@ export const getAllOrders = async (req, res, next) => {
       return next(errorHandler(403, 'You are not allowed to get orders'));
     }
     const orders = await Order.find({})
+      .populate('buyer')
       .sort({ createdAt: -1 })
       .populate('foodItems');
     return res.status(200).json(orders);

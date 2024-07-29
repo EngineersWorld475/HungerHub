@@ -6,6 +6,7 @@ import DashCategories from '../componants/DashCategories';
 import DashFooitems from '../componants/DashFooitems';
 import Orders from './Orders';
 import DashOrders from '../componants/DashOrders';
+import DashUsers from '../componants/DashUsers';
 
 const Dashboard = () => {
   const location = useLocation();
@@ -31,6 +32,7 @@ const Dashboard = () => {
       {tab === 'foodItem' && <DashFooitems />}
       {tab === 'orders' && <Orders />}
       {tab === 'admin-orders' && <DashOrders />}
+      {tab === 'users' && <DashUsers />}
     </div>
   );
 };
