@@ -31,6 +31,7 @@ const CartPage = () => {
     const updatedCart = [...cart];
     updatedCart.splice(index, 1);
     setCart(updatedCart);
+    localStorage.removeItem('hungcart');
   };
 
   useEffect(() => {
@@ -76,7 +77,7 @@ const CartPage = () => {
       const data = await res.json();
       if (res.ok) {
         setCart([]);
-        localStorage.removeItem('cart');
+        localStorage.removeItem('hungcart');
         navigate('/dashboard?tab=orders');
       } else {
         console.log(data.message);
@@ -86,7 +87,6 @@ const CartPage = () => {
     }
   };
 
-  console.log('.................', foodItems);
   return (
     <div className="min-h-screen min-w-3xl p-3 md:mx-auto">
       <>

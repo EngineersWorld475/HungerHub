@@ -33,7 +33,7 @@ const DashSidebar = () => {
               Profile
             </Sidebar.Item>
           </Link>
-          {existingUser && (
+          {existingUser && !existingUser.isAdmin && (
             <Link to={'/dashboard?tab=orders'}>
               <Sidebar.Item
                 active={tab === 'orders'}
@@ -42,7 +42,20 @@ const DashSidebar = () => {
                 className="cursor-pointer my-2"
                 as={'div'}
               >
-                {existingUser.isAdmin ? 'Orders list' : 'My orders'}
+                My orders
+              </Sidebar.Item>
+            </Link>
+          )}
+          {existingUser.isAdmin && (
+            <Link to={'/dashboard?tab=admin-orders'}>
+              <Sidebar.Item
+                active={tab === 'orders'}
+                icon={FaClipboardList}
+                labelColor="dark"
+                className="cursor-pointer my-2"
+                as={'div'}
+              >
+                Orders list
               </Sidebar.Item>
             </Link>
           )}

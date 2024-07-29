@@ -104,7 +104,7 @@ const DashProfile = () => {
       } else {
         dispatch(signoutSuccess());
         setCart([]);
-        localStorage.removeItem('cart');
+        localStorage.removeItem('hungcart');
       }
     } catch (error) {
       setSignoutError(error.message);

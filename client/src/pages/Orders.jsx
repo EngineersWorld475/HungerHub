@@ -22,7 +22,7 @@ const Orders = () => {
   useEffect(() => {
     fetchOrders();
   }, [existingUser]);
-  console.log(orders);
+
   return (
     <>
       <div className="min-h-screen px-3 md:px-10">

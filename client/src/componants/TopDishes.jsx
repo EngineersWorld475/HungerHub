@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useCart } from './context/cart';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const TopDishes = ({ data }) => {
-  const [cart, setCart] = useCart();
   return (
     <>
-      <ToastContainer />
-
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 ">
         {data.map((item) => {
           return (
@@ -85,19 +79,6 @@ const TopDishes = ({ data }) => {
                     5.0
                   </span>
                 </div>
-                <button
-                  onClick={() => {
-                    setCart([...cart, item]);
-                    localStorage.setItem(
-                      'hungcart',
-                      JSON.stringify([...cart, item])
-                    );
-                    toast('item added to cart');
-                  }}
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow"
-                >
-                  Add to Cart
-                </button>
               </div>
             </div>
           );
