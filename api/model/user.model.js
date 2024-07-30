@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema(
       default:
         'https://freerangestock.com/sample/118432/business-man-profile-vector.jpg',
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
