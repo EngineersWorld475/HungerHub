@@ -25,7 +25,7 @@ const foodSchema = new mongoose.Schema(
         'https://upload.wikimedia.org/wikipedia/commons/e/e6/Indian_food_set.JPG',
     },
     price: {
-      type: String,
+      type: Number,
       required: true,
     },
     quantity: {

@@ -9,6 +9,7 @@ import {
   showMore,
   searchFoodItem,
   getFoodByCategory,
+  filterFoodItems,
 } from '../controllers/food.controller.js';
 
 const router = express.Router();
@@ -21,5 +22,5 @@ router.delete('/delete-food/:userId/:foodId', verifyToken, deleteFood);
 router.get('/show-more/:start', showMore);
 router.get('/search-foodItem/:keyword', searchFoodItem);
 router.get('/get-food-by-category/:catId', getFoodByCategory);
-
+router.post('/filter-food-items', filterFoodItems);
 export default router;

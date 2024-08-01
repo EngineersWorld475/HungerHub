@@ -127,3 +127,21 @@ export const getFoodByCategory = async (req, res, next) => {
     next(error);
   }
 };
+
+export const filterFoodItems = async (req, res, next) => {
+  try {
+    const args = {};
+    if (req.body.price.length > 0) {
+      const [minPrice, maxPrice] = req.body.price;
+      args.price = { $gte: minPrice, $lte: maxPrice };
+    }
+    if (req.body.category) {
+      args.category = req.body.category;
+    }
+    console.log(args);
+    const foodItems = await Food.find(args);
+    return res.status(200).json(foodItems);
+  } catch (error) {
+    next(error);
+  }
+};
