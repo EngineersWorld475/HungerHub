@@ -35,7 +35,8 @@ export const createFood = async (req, res, next) => {
 
 export const getAllFood = async (req, res, next) => {
   try {
-    const food = await Food.find({}).limit(10);
+    const limit = req.query.limit || 10;
+    const food = await Food.find({}).limit(limit);
     res.status(200).json(food);
   } catch (error) {
     next(error);
@@ -97,6 +98,30 @@ export const showMore = async (req, res, next) => {
   try {
     const startIndex = req.params.start;
     const items = await Food.find({}).skip(startIndex).limit(10);
+    res.status(200).json(items);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const searchFoodItem = async (req, res, next) => {
+  try {
+    const { keyword } = req.params;
+    const items = await Food.find({
+      $or: [
+        { restaurant: { $regex: keyword, $options: 'i' } },
+        { foodName: { $regex: keyword, $options: 'i' } },
+      ],
+    });
+    res.status(200).json(items);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getFoodByCategory = async (req, res, next) => {
+  try {
+    const items = await Food.find({ category: req.params.catId });
     res.status(200).json(items);
   } catch (error) {
     next(error);

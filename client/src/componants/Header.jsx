@@ -1,13 +1,33 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react';
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { FaMoon } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
+import { useSearch } from './context/Search';
 
 const Header = () => {
   const { existingUser } = useSelector((state) => state.hunguser);
+  const [value, setValue] = useSearch();
   const path = useLocation().pathname;
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`/api/v4/food/search-foodItem/${value.keyword}`);
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setValue({ ...value, result: data });
+        navigate('/searched-products');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log('value', value);
   return (
     <Navbar className="border-b-3 py-5">
       <Link
@@ -19,21 +39,19 @@ const Header = () => {
         </span>
         Hub
       </Link>
-      <form>
+      <form onSubmit={handleSubmit}>
         <TextInput
           type="text"
           placeholder="Search..."
           rightIcon={AiOutlineSearch}
           className="hidden lg:inline"
+          onChange={(e) => setValue({ ...value, keyword: e.target.value })}
         />
       </form>
       <Button className="w-12 h-10 inline lg:hidden" color="gray" pill>
         <AiOutlineSearch />
       </Button>
       <div className="flex gap-2 md:order-2">
-        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
-          <FaMoon />
-        </Button>
         {existingUser ? (
           <Dropdown
             arrowIcon={false}
@@ -63,6 +81,17 @@ const Header = () => {
             </Button>
           </Link>
         )}
+
+        <div
+          className="w-12 h-10  px-2 py-1 sm:inline cursor-pointer"
+          color="gray"
+          style={{ color: '#17B169' }}
+        >
+          <Link to="/cart-page">
+            <FaShoppingCart size={30} />
+          </Link>
+        </div>
+
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>

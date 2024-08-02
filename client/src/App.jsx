@@ -12,6 +12,9 @@ import Dashboard from './pages/Dashboard';
 import PrivateAdminRoute from './componants/PrivateAdminRoute';
 import DashCategories from './componants/DashCategories';
 import CreateFood from './pages/CreateFood';
+import SearchedProducts from './pages/SearchedProducts';
+import ItemsByCategory from './pages/ItemsByCategory';
+import CartPage from './pages/CartPage';
 
 const App = () => {
   return (
@@ -31,6 +34,9 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/sign-in" element={<Signin />} />
         <Route path="/sign-up" element={<Signup />} />
+        <Route path="/searched-products" element={<SearchedProducts />} />
+        <Route path="/category-page/:id" element={<ItemsByCategory />} />
+        <Route path="/cart-page" element={<CartPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { assets } from '../assets/assets';
 import CategorySlider from '../componants/CategorySlider';
 import TopDishes from '../componants/TopDishes';
+import { Button } from 'flowbite-react';
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
   const [foodItems, setFoodItems] = useState([]);
+  const [showMore, setShowMore] = useState(true);
+  const startIndex = foodItems.length;
   const getCategories = async () => {
     try {
       const res = await fetch(`/api/v4/category/get-categories`);
@@ -23,7 +26,7 @@ const Home = () => {
 
   const getFoodItems = async () => {
     try {
-      const res = await fetch(`/api/v4/food/get-food`);
+      const res = await fetch(`/api/v4/food/get-food?limit=15`);
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);
@@ -35,11 +38,27 @@ const Home = () => {
     }
   };
 
+  const handleShowMore = async () => {
+    try {
+      const res = await fetch(`/api/v4/food/show-more/${foodItems.length}`);
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setFoodItems([...foodItems, ...data]);
+        if (data.length < 10) {
+          setShowMore(false);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getCategories();
     getFoodItems();
   }, []);
-  console.log(foodItems);
   return (
     <>
       <div className="px-5">
@@ -80,8 +99,21 @@ const Home = () => {
         </div>
         <hr className="my-10 mb-5 border-b-2 border-gray-400" />
       </div>
+
       <div className="p-5">
+        <h3 className="text-2xl  text-gray-800 font-semibold mb-5">
+          Top dishes near you
+        </h3>
         <TopDishes data={foodItems} />
+        {showMore && (
+          <Button
+            color="gray"
+            className=" w-full mt-5"
+            onClick={handleShowMore}
+          >
+            Show more...
+          </Button>
+        )}
       </div>
     </>
   );

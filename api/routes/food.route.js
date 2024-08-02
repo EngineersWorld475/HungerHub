@@ -7,6 +7,8 @@ import {
   updateFood,
   deleteFood,
   showMore,
+  searchFoodItem,
+  getFoodByCategory,
 } from '../controllers/food.controller.js';
 
 const router = express.Router();
@@ -17,5 +19,7 @@ router.get('/get-food/:slug', getSingleFood);
 router.put('/update-food/:userId/:foodId', verifyToken, updateFood);
 router.delete('/delete-food/:userId/:foodId', verifyToken, deleteFood);
 router.get('/show-more/:start', showMore);
+router.get('/search-foodItem/:keyword', searchFoodItem);
+router.get('/get-food-by-category/:catId', getFoodByCategory);
 
 export default router;

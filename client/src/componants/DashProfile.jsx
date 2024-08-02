@@ -215,6 +215,7 @@ const DashProfile = () => {
           placeholder="password"
           defaultValue="password"
           onChange={handleChange}
+          disabled
         />
         <Button type="submit" gradientDuoTone={'pinkToOrange'} outline>
           Submit
