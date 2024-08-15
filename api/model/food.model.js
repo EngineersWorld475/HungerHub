@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const foodSchema = mongoose.Schema(
+const foodSchema = new mongoose.Schema(
   {
     userId: {
       type: String,

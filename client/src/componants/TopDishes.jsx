@@ -17,7 +17,7 @@ const TopDishes = ({ data }) => {
               key={item.slug}
               className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
             >
-              <Link to="#">
+              <Link to={`/food-item/${item.slug}`}>
                 <img
                   className="rounded-t-lg"
                   src={item.foodImage}
@@ -26,13 +26,13 @@ const TopDishes = ({ data }) => {
               </Link>
               <div className="p-5">
                 <Link to="#">
-                  <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-500 dark:text-white">
+                  <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-500 dark:text-white line-clamp-1">
                     {item.restaurant}
                   </h5>
                 </Link>
                 <Link to="#">
                   <div className="flex flex-row justify-between">
-                    <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-500 dark:text-white">
+                    <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-500 dark:text-white line-clamp-1">
                       {item.foodName}
                     </h5>
                     <h4 className="mb-2 text-xl font-bold tracking-tight text-gray-500 dark:text-white">

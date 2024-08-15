@@ -201,3 +201,12 @@ export const signOutUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getUser = async (req, res, next) => {
+  try {
+    const user = await User.find({ _id: req.params.userId });
+    return res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};

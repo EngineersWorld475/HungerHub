@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../componants/context/cart';
 import { Select, Table, TableRow } from 'flowbite-react';
+import { useSelector } from 'react-redux';
 
 const CartPage = () => {
   const [cart, setCart] = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+  const { existingUser } = useSelector((state) => state.hunguser);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [paymentDetails, setPaymentDetails] = useState({
+    cardNumber: '',
+    expiryDate: '',
+    cvv: '',
+  });
 
   //handle quantity change
   const handleQuantityChange = (index, newQuantity) => {
     const updatedCart = [...cart];
     updatedCart[index].quantity = newQuantity;
-    console.log('updated', updatedCart);
     setCart(updatedCart);
   };
 
@@ -32,6 +40,35 @@ const CartPage = () => {
       setTotalPrice(0);
     }
   }, [cart]);
+  // Handle payment method selection
+  const handlePaymentMethodChange = (e) => {
+    setSelectedPaymentMethod(e.target.value);
+  };
+
+  // Toggle modal open/close
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  // Handle input change for payment details
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setPaymentDetails({
+      ...paymentDetails,
+      [name]: value,
+    });
+  };
+
+  const PaymentSubmit = () => {
+    console.log('Processing payment with method:', selectedPaymentMethod);
+    console.log('Payment details:', paymentDetails);
+    setIsModalOpen(false);
+    setPaymentDetails({
+      cardNumber: '',
+      expiryDate: '',
+      cvv: '',
+    });
+  };
   return (
     <div className="min-h-screen min-w-3xl p-3 md:mx-auto">
       <>
@@ -103,9 +140,112 @@ const CartPage = () => {
             <p className="py-5  md:text-xl text-red-500 font-semibold">
               Total Price: &#8377;{totalPrice}
             </p>
+            <div>
+              <Select
+                value={selectedPaymentMethod}
+                onChange={handlePaymentMethodChange}
+                style={{
+                  width: '150px',
+                  fontSize: '0.875rem',
+                  padding: '0.25rem 0.5rem',
+                }}
+                className="mr-3"
+                disabled={!existingUser}
+              >
+                <option value="">Select Payment Method</option>
+                <option value="creditcard">Credit Card</option>
+                <option value="paypal">PayPal</option>
+              </Select>
+              <button
+                className="px-4 py-2 my-3 rounded-md bg-green-500 text-white disabled:opacity-50"
+                onClick={toggleModal}
+                disabled={!selectedPaymentMethod || !existingUser}
+              >
+                Pay Now
+              </button>
+            </div>
           </div>
         ) : (
           <p className=" mt-5 text-center">You have no items in cart</p>
+        )}
+        {/* Modal for entering payment details */}
+        {isModalOpen && (
+          <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white rounded-lg p-6">
+              <h2 className="text-lg font-semibold mb-4">
+                Enter Payment Details
+              </h2>
+              <form>
+                <div className="mb-4">
+                  <label
+                    htmlFor="cardNumber"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Card Number
+                  </label>
+                  <input
+                    type="text"
+                    id="cardNumber"
+                    name="cardNumber"
+                    value={paymentDetails.cardNumber}
+                    onChange={handleInputChange}
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="expiryDate"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Expiry Date
+                  </label>
+                  <input
+                    type="text"
+                    id="expiryDate"
+                    name="expiryDate"
+                    value={paymentDetails.expiryDate}
+                    onChange={handleInputChange}
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="cvv"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    CVV
+                  </label>
+                  <input
+                    type="text"
+                    id="cvv"
+                    name="cvv"
+                    value={paymentDetails.cvv}
+                    onChange={handleInputChange}
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    required
+                  />
+                </div>
+                <div className="mt-4 flex justify-end">
+                  <button
+                    type="button"
+                    className="px-4 py-2 mr-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+                    onClick={toggleModal}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+                    onClick={PaymentSubmit}
+                  >
+                    Submit Payment
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         )}
       </>
     </div>

@@ -15,10 +15,13 @@ import CreateFood from './pages/CreateFood';
 import SearchedProducts from './pages/SearchedProducts';
 import ItemsByCategory from './pages/ItemsByCategory';
 import CartPage from './pages/CartPage';
+import FoodDetails from './pages/FoodDetails';
+import ScrollToTop from './componants/ScrollToTop';
 
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -37,6 +40,7 @@ const App = () => {
         <Route path="/searched-products" element={<SearchedProducts />} />
         <Route path="/category-page/:id" element={<ItemsByCategory />} />
         <Route path="/cart-page" element={<CartPage />} />
+        <Route path="/food-item/:slug" element={<FoodDetails />} />
       </Routes>
     </BrowserRouter>
   );
