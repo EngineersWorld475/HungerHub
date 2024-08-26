@@ -24,43 +24,52 @@ const Orders = () => {
   }, [existingUser]);
 
   return (
-    <>
-      <div className="min-h-screen px-3 md:px-10">
-        <h1 className="text-start text-2xl font-semibold my-5 text-red-500">
-          Order History and Status
-        </h1>
-        <div className="w-auto">
-          {orders.map((order) => (
-            <div key={order._id}>
-              <h1 className="text-green-700 font-semibold mb-1">
-                <span className="text-red-500">status:</span> {order.status}
-              </h1>
-              {order.foodItems.map((foodItem) => (
-                <div
-                  key={foodItem._id}
-                  className="flex flex-col md:flex-row items-center border-4 border-orange-400 p-3 mb-2 w-auto "
-                >
-                  <>
+    <div className="min-h-screen  py-6 px-4 sm:px-6 lg:px-8">
+      <h1 className="text-3xl font-semibold text-center text-red-500 mb-8">
+        Order History and Status
+      </h1>
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {orders.map((order) => (
+          <div
+            key={order._id}
+            className="bg-white overflow-hidden shadow rounded-lg"
+          >
+            <div className="p-4">
+              <h2 className="text-lg font-semibold text-green-700 mb-2">
+                Order ID: {order._id}
+              </h2>
+              <p className="text-sm text-gray-600">Status: {order.status}</p>
+              <div className="mt-4 space-y-2">
+                {order.foodItems.map((foodItem) => (
+                  <div
+                    key={foodItem._id}
+                    className="flex items-center space-x-4"
+                  >
                     <img
                       src={foodItem.foodImage}
                       alt={foodItem.foodName}
-                      className="w-40 h-40 mb-3"
+                      className="w-16 h-16 rounded-lg"
                     />
-                    <h1 className="mx-5 text-xl">{foodItem.foodName}</h1>
-                    <h1 className="mx-5 text-xl text-red-400">
-                      {foodItem.restaurant}
-                    </h1>
-                    <h1 className="mx-5 text-xl text-red-600">
-                      &#8377;{foodItem.price}
-                    </h1>
-                  </>
-                </div>
-              ))}
+                    <div>
+                      <h3 className="text-base font-semibold text-gray-800">
+                        {foodItem.foodName}
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        {foodItem.restaurant}
+                      </p>
+                      <p className="text-sm text-red-600">
+                        &#8377;{foodItem.price}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

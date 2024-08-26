@@ -7,6 +7,7 @@ import DashFooitems from '../componants/DashFooitems';
 import Orders from './Orders';
 import DashOrders from '../componants/DashOrders';
 import DashUsers from '../componants/DashUsers';
+import DashAddress from '../componants/DashAddress';
 
 const Dashboard = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const Dashboard = () => {
       {tab === 'orders' && <Orders />}
       {tab === 'admin-orders' && <DashOrders />}
       {tab === 'users' && <DashUsers />}
+      {tab === 'address' && <DashAddress />}
     </div>
   );
 };

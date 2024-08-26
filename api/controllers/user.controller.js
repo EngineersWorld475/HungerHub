@@ -23,10 +23,7 @@ export const signupController = async (req, res, next) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(403).send({
-        success: false,
-        message: 'User has already registered',
-      });
+      return next(errorHandler(403, 'User has already registered'));
     }
 
     const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -51,10 +48,7 @@ export const signinController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password || email === '' || password === '') {
-      return res.status(400).send({
-        success: false,
-        message: 'All fields are required',
-      });
+      return next(errorHandler(403, 'All fields are required'));
     }
 
     const validUser = await User.findOne({ email });
@@ -95,10 +89,8 @@ export const googleAuth = async (req, res, next) => {
       return res
         .status(200)
         .cookie('access_token', token, { httpOnly: true })
-        .json(rest)
-        .select('-password');
+        .json(rest);
     }
-
     const generatedPassword =
       Math.random().toString(36).slice(-8) +
       Math.random().toString(36).slice(-8);
