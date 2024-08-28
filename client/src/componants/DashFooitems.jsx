@@ -2,6 +2,7 @@ import { Alert, Button, Modal, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const DashFooitems = () => {
   const [foodItems, setFoodItems] = useState([]);
@@ -113,7 +114,9 @@ const DashFooitems = () => {
                         <Table.Cell> {food && food.foodName}</Table.Cell>
                         <Table.Cell> {food && food.price}</Table.Cell>
                         <Table.Cell>
-                          <Button color="blue">Edit</Button>
+                          <Link to={`/update-food/${food.slug}`}>
+                            <Button color="blue">Edit</Button>
+                          </Link>
                         </Table.Cell>
                         <Table.Cell>
                           <Button

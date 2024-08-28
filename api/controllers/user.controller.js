@@ -86,6 +86,7 @@ export const googleAuth = async (req, res, next) => {
         process.env.JWT_SECRET
       );
       const { password, ...rest } = user._doc;
+      console.log('...rest', rest);
       return res
         .status(200)
         .cookie('access_token', token, { httpOnly: true })

@@ -119,7 +119,11 @@ const CreateFood = () => {
           >
             {categories &&
               categories.map((cat) => {
-                return <option value={cat._id}>{cat.categoryName}</option>;
+                return (
+                  <option key={cat._id} value={cat._id}>
+                    {cat.categoryName}
+                  </option>
+                );
               })}
           </Select>
         </div>

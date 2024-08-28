@@ -19,6 +19,7 @@ import FoodDetails from './pages/FoodDetails';
 import ScrollToTop from './componants/ScrollToTop';
 import Orders from './pages/Orders';
 import Footer from './componants/Footer';
+import UpdateFood from './pages/UpdateFood';
 
 const App = () => {
   return (
@@ -43,6 +44,7 @@ const App = () => {
         <Route path="/category-page/:id" element={<ItemsByCategory />} />
         <Route path="/cart-page" element={<CartPage />} />
         <Route path="/food-item/:slug" element={<FoodDetails />} />
+        <Route path="/update-food/:slug" element={<UpdateFood />} />
         <Route path="/orders" element={<Orders />} />
       </Routes>
       <Footer />

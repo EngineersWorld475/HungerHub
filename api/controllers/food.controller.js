@@ -60,7 +60,7 @@ export const getAllFood = async (req, res, next) => {
 export const getSingleFood = async (req, res, next) => {
   try {
     const { slug } = req.params;
-    const food = await Food.find({ slug });
+    const food = await Food.find({ slug }).populate('category');
     res.status(200).json(food);
   } catch (error) {
     next(error);

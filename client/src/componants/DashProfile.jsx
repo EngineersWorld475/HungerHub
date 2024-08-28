@@ -36,7 +36,9 @@ const DashProfile = () => {
   const dispatch = useDispatch();
 
   const handleImage = (e) => {
+    console.log(e.target.files);
     const file = e.target.files[0];
+    console.log(file);
     if (file) {
       setImageFile(file);
       setImageFileUrl(URL.createObjectURL(file));

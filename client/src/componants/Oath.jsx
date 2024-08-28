@@ -16,6 +16,7 @@ const Oath = () => {
     provider.getCustomParameters({ prompt: 'select_account' });
     try {
       const resultsFromGoogle = await signInWithPopup(auth, provider);
+      console.log('resultsFromGoogle', resultsFromGoogle);
       const res = await fetch(`/api/v4/user/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
