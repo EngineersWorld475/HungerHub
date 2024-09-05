@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../componants/context/cart';
-import { Select, Table, TableRow } from 'flowbite-react';
+import { Select } from 'flowbite-react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,14 +19,14 @@ const CartPage = () => {
 
   const foodItems = cart.map((c) => c._id);
 
-  //handle quantity change
+  // Handle quantity change
   const handleQuantityChange = (index, newQuantity) => {
     const updatedCart = [...cart];
     updatedCart[index].quantity = newQuantity;
     setCart(updatedCart);
   };
 
-  // handle remove item
+  // Handle remove item
   const handleRemoveItem = (index) => {
     const updatedCart = [...cart];
     updatedCart.splice(index, 1);
@@ -45,6 +45,7 @@ const CartPage = () => {
       setTotalPrice(0);
     }
   }, [cart]);
+
   // Handle payment method selection
   const handlePaymentMethodChange = (e) => {
     setSelectedPaymentMethod(e.target.value);
@@ -88,108 +89,89 @@ const CartPage = () => {
   };
 
   return (
-    <div className="min-h-screen min-w-3xl p-3 md:mx-auto">
+    <div className="min-h-screen p-4 md:p-6 lg:p-8">
       <>
         {cart && cart.length > 0 ? (
-          <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300">
-            <Table className="my-5">
-              <Table.Head>
-                <Table.HeadCell>Item</Table.HeadCell>
-                <Table.HeadCell>Price</Table.HeadCell>
-                <Table.HeadCell className="text-center">
-                  Quantity
-                </Table.HeadCell>
-                <Table.HeadCell>Action</Table.HeadCell>
-              </Table.Head>
-              {cart.map((food, index) => {
-                return (
-                  <Table.Body>
-                    <Table.Row>
-                      <Table.Cell>
-                        <div className="md:flex flex-row gap-2">
-                          <img
-                            src={food && food.foodImage}
-                            alt="food-image"
-                            className="w-30 h-20 object-cover bg-gray-500"
-                          />
-                          <div className="flex flex-col gap-3">
-                            <h1 className="md:text-xl text-red-500 font-semibold">
-                              {food.foodName}
-                            </h1>
-                            <h1 className="text-semibold text-gray-700">
-                              [{food.restaurant}]
-                            </h1>
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell className="md:text-xl text-red-500 font-semibold">
-                        &#8377;{food.price}
-                      </Table.Cell>
-                      <Table.Cell>
-                        <Select
-                          defaultValue={food.quantity}
-                          onChange={(e) =>
-                            handleQuantityChange(
-                              index,
-                              parseInt(e.target.value)
-                            )
-                          }
-                        >
-                          {[1, 2, 3, 4, 5, 6, 7].map((option, idx) => (
-                            <option key={idx} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </Select>
-                      </Table.Cell>
-                      <Table.Cell>
-                        <button
-                          className="px-3 py-2 rounded-md bg-red-500 text-white"
-                          onClick={() => handleRemoveItem(index)}
-                        >
-                          Remove
-                        </button>
-                      </Table.Cell>
-                    </Table.Row>
-                  </Table.Body>
-                );
-              })}
-            </Table>
-            <p className="py-5  md:text-xl text-red-500 font-semibold">
-              Total Price: &#8377;{totalPrice}
-            </p>
-            <div>
-              <Select
-                value={selectedPaymentMethod}
-                onChange={handlePaymentMethodChange}
-                style={{
-                  width: '150px',
-                  fontSize: '0.875rem',
-                  padding: '0.25rem 0.5rem',
-                }}
-                className="mr-3"
-                disabled={!existingUser}
-              >
-                <option value="">Select Payment Method</option>
-                <option value="creditcard">Credit Card</option>
-                <option value="paypal">PayPal</option>
-              </Select>
-              <button
-                className="px-4 py-2 my-3 rounded-md bg-green-500 text-white disabled:opacity-50"
-                onClick={toggleModal}
-                disabled={!selectedPaymentMethod || !existingUser}
-              >
-                Pay Now
-              </button>
+          <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {cart.map((food, index) => (
+                <div
+                  key={food._id}
+                  className="border rounded-lg p-4 flex flex-col"
+                >
+                  <div className="flex items-center mb-4">
+                    <img
+                      src={food.foodImage}
+                      alt="food-image"
+                      className="w-20 h-20 object-cover bg-gray-500 rounded-md"
+                    />
+                    <div className="ml-4 flex flex-col">
+                      <h1 className="text-lg text-red-500 font-semibold">
+                        {food.foodName}
+                      </h1>
+                      <h2 className="text-gray-700">[{food.restaurant}]</h2>
+                    </div>
+                  </div>
+                  <div className="flex justify-between mb-4 items-center">
+                    <span className="text-lg text-red-500 font-semibold">
+                      &#8377;{food.price}
+                    </span>
+                    <Select
+                      defaultValue={food.quantity}
+                      onChange={(e) =>
+                        handleQuantityChange(index, parseInt(e.target.value))
+                      }
+                      className="w-20"
+                    >
+                      {[1, 2, 3, 4, 5, 6, 7].map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </Select>
+                  </div>
+                  <button
+                    className="self-end px-3 py-2 rounded-md bg-red-500 text-white"
+                    onClick={() => handleRemoveItem(index)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-col items-start md:flex-row md:items-center md:justify-between">
+              <p className="text-lg text-red-500 font-semibold mb-4 md:mb-0">
+                Total Price: &#8377;{totalPrice}
+              </p>
+              <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-4">
+                <Select
+                  value={selectedPaymentMethod}
+                  onChange={handlePaymentMethodChange}
+                  className="mb-4 md:mb-0"
+                  style={{ width: '150px' }}
+                  disabled={!existingUser}
+                >
+                  <option value="">Select Payment Method</option>
+                  <option value="creditcard">Credit Card</option>
+                  <option value="paypal">PayPal</option>
+                </Select>
+                <button
+                  className="px-4 py-2 rounded-md bg-green-500 text-white disabled:opacity-50"
+                  onClick={toggleModal}
+                  disabled={!selectedPaymentMethod || !existingUser}
+                >
+                  Pay Now
+                </button>
+              </div>
             </div>
           </div>
         ) : (
-          <p className=" mt-5 text-center">You have no items in cart</p>
+          <p className="mt-5 text-center">You have no items in cart</p>
         )}
         {/* Modal for entering payment details */}
         {isModalOpen && (
           <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white rounded-lg p-6">
+            <div className="bg-white rounded-lg p-6 w-full max-w-md">
               <h2 className="text-lg font-semibold mb-4">
                 Enter Payment Details
               </h2>

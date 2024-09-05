@@ -149,6 +149,11 @@ const DashProfile = () => {
 
   return (
     <div className="mx-auto max-w-lg w-full p-3">
+      {SignoutError && (
+        <Alert color="failure" className="mt-2">
+          {SignoutError}
+        </Alert>
+      )}
       <h1 className="text-center my-5 mb-5 text-3xl font-semibold font-sans">
         Profile
       </h1>

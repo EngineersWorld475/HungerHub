@@ -3,17 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaShoppingCart } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useSearch } from './context/Search';
 import { useCart } from './context/cart';
+import { signoutSuccess } from '../redux/user/userSlice';
 
 const Header = () => {
   const { existingUser } = useSelector((state) => state.hunguser);
   const [value, setValue] = useSearch();
   const path = useLocation().pathname;
+  const [signoutError, setSignoutError] = useState('');
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
   const [cartCount, setCartCount] = useState(0);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +34,24 @@ const Header = () => {
     }
   };
 
+  const handleSignout = async () => {
+    try {
+      const res = await fetch(`/api/v4/user/signout`, {
+        method: 'POST',
+      });
+      const data = res.json();
+      if (!res) {
+        setSignoutError(data.message);
+      } else {
+        dispatch(signoutSuccess());
+        setCart([]);
+        localStorage.removeItem('hungcart');
+      }
+    } catch (error) {
+      setSignoutError(error.message);
+    }
+  };
+
   useEffect(() => {
     let totalCount = 0;
     cart &&
@@ -40,7 +61,6 @@ const Header = () => {
     setCartCount(totalCount);
   }, [cart]);
   cart.slice(1, 1);
-  console.log('cart', cart);
   return (
     <Navbar className="border-b-3 py-5">
       <Link
@@ -85,7 +105,7 @@ const Header = () => {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/sign-in">

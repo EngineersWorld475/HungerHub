@@ -15,12 +15,34 @@ import {
 import { GiKnifeFork } from 'react-icons/gi';
 
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { signoutSuccess } from '../redux/user/userSlice';
 
 const DashSidebar = () => {
   const location = useLocation();
   const [tab, setTab] = useState('');
   const { existingUser } = useSelector((state) => state.hunguser);
+  const [signoutError, setSignoutError] = useState('');
+  const dispatch = useDispatch();
+
+  const handleSignout = async () => {
+    try {
+      const res = await fetch(`/api/v4/user/signout`, {
+        method: 'POST',
+      });
+      const data = res.json();
+      if (!res) {
+        setSignoutError(data.message);
+      } else {
+        dispatch(signoutSuccess());
+        setCart([]);
+        localStorage.removeItem('hungcart');
+      }
+    } catch (error) {
+      setSignoutError(error.message);
+    }
+  };
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get('tab');
@@ -157,6 +179,7 @@ const DashSidebar = () => {
             icon={HiArrowRight}
             className="cursor-pointer"
             as={'div'}
+            onClick={handleSignout}
           >
             Sign out
           </Sidebar.Item>

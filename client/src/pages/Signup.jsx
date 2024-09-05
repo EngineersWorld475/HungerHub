@@ -14,7 +14,6 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     if (
       !formData.username ||
       !formData.email ||
@@ -33,10 +32,9 @@ const Signup = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
       if (data.success === false) {
-        return setErrorMessage(data.message);
         setLoading(false);
+        return setErrorMessage(data.message);
       }
       navigate('/sign-in');
     } catch (error) {
