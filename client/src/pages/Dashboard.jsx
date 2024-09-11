@@ -8,6 +8,8 @@ import Orders from './Orders';
 import DashOrders from '../componants/DashOrders';
 import DashUsers from '../componants/DashUsers';
 import DashAddress from '../componants/DashAddress';
+import DashOverview from '../componants/DashOverview';
+import DashComments from '../componants/DashComments';
 
 const Dashboard = () => {
   const location = useLocation();
@@ -35,6 +37,8 @@ const Dashboard = () => {
       {tab === 'admin-orders' && <DashOrders />}
       {tab === 'users' && <DashUsers />}
       {tab === 'address' && <DashAddress />}
+      {tab === 'dash' && <DashOverview />}
+      {tab === 'comments' && <DashComments />}
     </div>
   );
 };

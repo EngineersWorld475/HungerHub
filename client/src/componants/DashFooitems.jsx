@@ -53,7 +53,7 @@ const DashFooitems = () => {
       if (!res.ok) {
         console.log(data.message);
       } else {
-        setFoodItems(data);
+        setFoodItems(data.food);
       }
     } catch (error) {
       console.log(error);

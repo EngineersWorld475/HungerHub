@@ -41,7 +41,7 @@ const DashCategories = () => {
       if (!res.json) {
         console.log(data.message);
       } else {
-        setCategories(data);
+        setCategories(data.categories);
       }
     } catch (error) {
       console.log(error);

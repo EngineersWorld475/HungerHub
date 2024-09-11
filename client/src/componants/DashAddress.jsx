@@ -28,11 +28,12 @@ const DashAddress = () => {
         body: JSON.stringify(address),
       });
       const data = await res.json();
+      console.log('....data', data);
+
       if (res.ok) {
         setAddress(data);
-        toast('Address added successfully');
       } else {
-        toast('Something went wrong...please try again later');
+        console.log(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -149,18 +150,21 @@ const DashAddress = () => {
               placeholder="Enter your street"
               value={address.street || ''}
               onChange={handleChange}
+              required
             />
             <TextInput
               id="city"
               placeholder="Enter your city"
               value={address.city || ''}
               onChange={handleChange}
+              required
             />
             <TextInput
               id="state"
               placeholder="Enter your state"
               value={address.state || ''}
               onChange={handleChange}
+              required
             />
             <div className="flex flex-row gap-3">
               <TextInput
@@ -168,11 +172,13 @@ const DashAddress = () => {
                 placeholder="Postal code"
                 value={address.postalCode || ''}
                 onChange={handleChange}
+                required
               />
               <Select
                 id="country"
                 value={address.country || ''}
                 onChange={handleChange}
+                required
               >
                 <option value="">Select your country</option>
                 <option value="China">China</option>
@@ -189,6 +195,7 @@ const DashAddress = () => {
               placeholder="Enter your phone number"
               value={address.phone || ''}
               onChange={handleChange}
+              required
             />
             <Button type="submit" gradientDuoTone="purpleToBlue" outline>
               Add Address

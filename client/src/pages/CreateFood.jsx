@@ -27,7 +27,7 @@ const CreateFood = () => {
       if (!res) {
         console.log(data.message);
       } else {
-        setCategories(data);
+        setCategories(data.categories);
       }
     } catch (error) {
       console.log(error);

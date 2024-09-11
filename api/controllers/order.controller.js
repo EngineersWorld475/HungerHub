@@ -33,11 +33,27 @@ export const getAllOrders = async (req, res, next) => {
     if (!req.user.isAdmin) {
       return next(errorHandler(403, 'You are not allowed to get orders'));
     }
+    const limit = req.query.limit;
     const orders = await Order.find({})
       .populate('buyer')
       .sort({ createdAt: -1 })
-      .populate('foodItems');
-    return res.status(200).json(orders);
+      .populate('foodItems')
+      .limit(limit);
+    const totalOrders = await Order.countDocuments();
+    const now = new Date();
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
+    const lastMonthOrders = await Order.countDocuments({
+      createdAt: { $gte: oneMonthAgo },
+    });
+    return res.status(200).json({
+      orders,
+      totalOrders,
+      lastMonthOrders,
+    });
   } catch (error) {
     next(error);
   }

@@ -37,7 +37,21 @@ export const getAllFood = async (req, res, next) => {
   try {
     const limit = req.query.limit || 10;
     const food = await Food.find({}).limit(limit);
-    res.status(200).json(food);
+    const totalFoodItems = await Food.countDocuments();
+    const now = new Date();
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
+    const lastMonthFoodItems = await Food.countDocuments({
+      createdAt: { $gte: oneMonthAgo },
+    });
+    res.status(200).json({
+      food,
+      totalFoodItems,
+      lastMonthFoodItems,
+    });
   } catch (error) {
     next(error);
   }

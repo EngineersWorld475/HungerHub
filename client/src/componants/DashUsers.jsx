@@ -16,7 +16,7 @@ const DashUsers = () => {
       if (!res.ok) {
         console.log(data.message);
       } else {
-        setUsers(data);
+        setUsers(data.users);
       }
     } catch (error) {
       console.log(error);

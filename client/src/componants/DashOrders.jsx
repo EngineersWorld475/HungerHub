@@ -17,7 +17,7 @@ const DashOrders = () => {
       const res = await fetch(`/api/v4/order/get-orders`);
       const data = await res.json();
       if (res.ok) {
-        setAllOrders(data);
+        setAllOrders(data.orders);
       } else {
         console.log(data.message);
       }

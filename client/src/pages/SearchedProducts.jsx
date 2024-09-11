@@ -43,7 +43,7 @@ const SearchedProducts = () => {
       const res = await fetch(`/api/v4/category/get-categories`);
       const data = await res.json();
       if (res.ok) {
-        setCategories(data);
+        setCategories(data.categories);
       }
     } catch (error) {
       console.log(error);

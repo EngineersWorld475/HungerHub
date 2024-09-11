@@ -6,8 +6,14 @@ import {
   HiDocumentText,
   HiUserGroup,
 } from 'react-icons/hi';
-import { FaClipboardList, FaMapMarkedAlt } from 'react-icons/fa';
+import {
+  FaClipboardList,
+  FaMapMarkedAlt,
+  FaChartPie,
+  FaComment,
+} from 'react-icons/fa';
 import { GiKnifeFork } from 'react-icons/gi';
+
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -26,6 +32,19 @@ const DashSidebar = () => {
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
+          {existingUser && existingUser.isAdmin && (
+            <Link to={'/dashboard?tab=dash'}>
+              <Sidebar.Item
+                active={tab === 'dash'}
+                icon={FaChartPie}
+                labelColor="dark"
+                className="cursor-pointer mb-2"
+                as={'div'}
+              >
+                Dashboard
+              </Sidebar.Item>
+            </Link>
+          )}
           {existingUser && (
             <Link to={'/dashboard?tab=profile'}>
               <Sidebar.Item
@@ -115,6 +134,19 @@ const DashSidebar = () => {
                 as={'div'}
               >
                 Users
+              </Sidebar.Item>
+            </Link>
+          )}
+          {existingUser.isAdmin && (
+            <Link to={'/dashboard?tab=comments'}>
+              <Sidebar.Item
+                active={tab === 'comments'}
+                icon={FaComment}
+                labelColor="dark"
+                className="cursor-pointer my-2"
+                as={'div'}
+              >
+                Comments
               </Sidebar.Item>
             </Link>
           )}

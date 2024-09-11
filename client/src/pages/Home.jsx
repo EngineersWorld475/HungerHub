@@ -17,7 +17,7 @@ const Home = () => {
       if (!res.ok) {
         console.log(data.message);
       } else {
-        setCategories(data);
+        setCategories(data.categories);
       }
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ const Home = () => {
       if (!res.ok) {
         console.log(data.message);
       } else {
-        setFoodItems(data);
+        setFoodItems(data.food);
       }
     } catch (error) {
       console.log(error);

@@ -30,44 +30,45 @@ const Orders = () => {
       </h1>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {orders.map((order) => (
-          <div
-            key={order._id}
-            className="bg-white overflow-hidden shadow rounded-lg"
-          >
-            <div className="p-4">
-              <h2 className="text-lg font-semibold text-green-700 mb-2">
-                Order ID: {order._id}
-              </h2>
-              <p className="text-sm text-gray-600">Status: {order.status}</p>
-              <div className="mt-4 space-y-2">
-                {order.foodItems.map((foodItem) => (
-                  <div
-                    key={foodItem._id}
-                    className="flex items-center space-x-4"
-                  >
-                    <img
-                      src={foodItem.foodImage}
-                      alt={foodItem.foodName}
-                      className="w-16 h-16 rounded-lg"
-                    />
-                    <div>
-                      <h3 className="text-base font-semibold text-gray-800">
-                        {foodItem.foodName}
-                      </h3>
-                      <p className="text-sm text-gray-600">
-                        {foodItem.restaurant}
-                      </p>
-                      <p className="text-sm text-red-600">
-                        &#8377;{foodItem.price}
-                      </p>
+        {orders &&
+          orders.map((order) => (
+            <div
+              key={order._id}
+              className="bg-white overflow-hidden shadow rounded-lg"
+            >
+              <div className="p-4">
+                <h2 className="text-lg font-semibold text-green-700 mb-2">
+                  Order ID: {order._id}
+                </h2>
+                <p className="text-sm text-gray-600">Status: {order.status}</p>
+                <div className="mt-4 space-y-2">
+                  {order.foodItems.map((foodItem) => (
+                    <div
+                      key={foodItem._id}
+                      className="flex items-center space-x-4"
+                    >
+                      <img
+                        src={foodItem.foodImage}
+                        alt={foodItem.foodName}
+                        className="w-16 h-16 rounded-lg"
+                      />
+                      <div>
+                        <h3 className="text-base font-semibold text-gray-800">
+                          {foodItem.foodName}
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          {foodItem.restaurant}
+                        </p>
+                        <p className="text-sm text-red-600">
+                          &#8377;{foodItem.price}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

@@ -220,8 +220,23 @@ export const getAllUsers = async (req, res, next) => {
     if (!req.user.isAdmin) {
       return next(errorHandler(403, 'You are not eligible to get users list'));
     }
-    const users = await User.find({}).sort({ createdAt: -1 });
-    return res.status(200).send(users);
+    const limit = req.query.limit;
+    const users = await User.find({}).sort({ createdAt: -1 }).limit(limit);
+    const totalUsers = await User.countDocuments();
+    const now = new Date();
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
+    const lastMonthUsers = await User.countDocuments({
+      createdAt: { $gte: oneMonthAgo },
+    });
+    return res.status(200).send({
+      users,
+      totalUsers,
+      lastMonthUsers,
+    });
   } catch (error) {
     next(error);
   }

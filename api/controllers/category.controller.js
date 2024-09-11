@@ -29,8 +29,23 @@ export const createCategory = async (req, res, next) => {
 
 export const getAllCategory = async (req, res, next) => {
   try {
-    const categories = await Category.find({});
-    return res.status(200).json(categories);
+    const limit = req.query.limit;
+    const categories = await Category.find({}).limit(limit);
+    const totalCategories = await Category.countDocuments();
+    const now = new Date();
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
+    const lastMonthCategories = await Category.countDocuments({
+      createdAt: { $gte: oneMonthAgo },
+    });
+    return res.status(200).json({
+      categories,
+      totalCategories,
+      lastMonthCategories,
+    });
   } catch (error) {
     next(error);
   }
