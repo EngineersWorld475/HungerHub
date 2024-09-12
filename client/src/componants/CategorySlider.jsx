@@ -15,7 +15,7 @@ const CategorySlider = ({ data }) => {
                 <img
                   src={item.categoryImage}
                   alt={item.categoryName}
-                  className="w-24 h-20 md:w-32 md:h-32 rounded-full md:hover:border md:border-4 border-orange-500 p-3"
+                  className="w-28 h-16 md:w-32 md:h-32 rounded-full md:hover:border md:border-4 border-orange-500"
                 />
               </Link>
             </div>

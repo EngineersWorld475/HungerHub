@@ -18,6 +18,7 @@ import CartPage from './pages/CartPage';
 import FoodDetails from './pages/FoodDetails';
 import ScrollToTop from './componants/ScrollToTop';
 import Orders from './pages/Orders';
+import Footer from './componants/Footer';
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
         <Route path="/food-item/:slug" element={<FoodDetails />} />
         <Route path="/orders" element={<Orders />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };
