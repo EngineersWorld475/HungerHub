@@ -3,7 +3,9 @@ This is a comprehensive food delivery application developed using the MERN stack
 The application facilitates seamless food ordering and delivery services, providing an intuitive and user-friendly interface.
 
 Features:
-Dynamic User Interface: Built with React.js for a responsive and engaging user experience.
+
+Dynamic User Interface: 
+Built with React.js for a responsive and engaging user experience.
 
 Modern Styling: Utilized Tailwind CSS and Flowbite components for sleek and responsive design.
 
