@@ -1,8 +1,8 @@
-Overview
+Overview:
 This is a comprehensive food delivery application developed using the MERN stack (MongoDB, Express.js, React.js, Node.js). 
 The application facilitates seamless food ordering and delivery services, providing an intuitive and user-friendly interface.
 
-Features
+Features:
 Dynamic User Interface: Built with React.js for a responsive and engaging user experience.
 Modern Styling: Utilized Tailwind CSS and Flowbite components for sleek and responsive design.
 RESTful APIs: Implemented server-side logic using Node.js and Express.js to manage data and user interactions.
@@ -14,25 +14,25 @@ Search and Filter: Users can search for food items and filter results based on c
 Payment Integration: Developed a dummy payment system for testing purposes, simulating payment transactions without real financial processing.
 Review System: Users can post reviews on food items and like or dislike reviews, fostering interaction and feedback within the community.
 Technologies Used
-Frontend:
 
+Frontend:
 React.js
 Tailwind CSS
 Flowbite
-Backend:
 
+Backend:
 Node.js
 Express.js
 MongoDB
+
 Authentication:
-
 Firebase
-State Management:
 
+State Management:
 Redux Toolkit
 Context API
 
-Getting Started
+Getting Started:
 Prerequisites
 Make sure you have the following installed on your machine:
 
@@ -45,7 +45,7 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/yourusername/food-delivery-app.git
+git clone https://github.com/username/HungerHub/edit/main/README.md
 Navigate to the project directory:
 
 bash
