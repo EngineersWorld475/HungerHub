@@ -1,4 +1,5 @@
 Overview:
+
 This is a comprehensive food delivery application developed using the MERN stack (MongoDB, Express.js, React.js, Node.js). 
 The application facilitates seamless food ordering and delivery services, providing an intuitive and user-friendly interface.
 
@@ -7,23 +8,32 @@ Features:
 Dynamic User Interface: 
 Built with React.js for a responsive and engaging user experience.
 
-Modern Styling: Utilized Tailwind CSS and Flowbite components for sleek and responsive design.
+Modern Styling: 
+Utilized Tailwind CSS and Flowbite components for sleek and responsive design.
 
-RESTful APIs: Implemented server-side logic using Node.js and Express.js to manage data and user interactions.
+RESTful APIs: 
+Implemented server-side logic using Node.js and Express.js to manage data and user interactions.
 
-Data Persistence: Managed application data with MongoDB, ensuring reliable data storage.
+Data Persistence: 
+Managed application data with MongoDB, ensuring reliable data storage.
 
-User Authentication: Integrated Firebase for Google authentication, providing secure user sign-in capabilities.
+User Authentication: 
+Integrated Firebase for Google authentication, providing secure user sign-in capabilities.
 
-Image Upload: Enabled users to upload images with ease through Firebase, enhancing media management.
+Image Upload: 
+Enabled users to upload images with ease through Firebase, enhancing media management.
 
-State Management: Employed React Redux Toolkit for efficient state management and Context API for application-wide state management.
+State Management: 
+Employed React Redux Toolkit for efficient state management and Context API for application-wide state management.
 
-Search and Filter: Users can search for food items and filter results based on category and price.
+Search and Filter: 
+Users can search for food items and filter results based on category and price.
 
-Payment Integration: Developed a dummy payment system for testing purposes, simulating payment transactions without real financial processing.
+Payment Integration: 
+Developed a dummy payment system for testing purposes, simulating payment transactions without real financial processing.
 
-Review System: Users can post reviews on food items and like or dislike reviews, fostering interaction and feedback within the community.
+Review System: 
+Users can post reviews on food items and like or dislike reviews, fostering interaction and feedback within the community.
 
 Technologies Used
 
