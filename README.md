@@ -109,15 +109,3 @@ MONGO_URI=your_mongodb_uri
 FIREBASE_API_KEY=your_firebase_api_key
 FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
 Make sure to replace the placeholders with your actual configuration details.
-
-Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
-
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-Acknowledgements
-MERN Stack
-Firebase
-Tailwind CSS
-Flowbite
