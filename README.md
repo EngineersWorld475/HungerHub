@@ -105,7 +105,11 @@ Create a .env file in the backend directory and add the following environment va
 
 makefile
 Copy code
+
 MONGO_URI=your_mongodb_uri
+
 FIREBASE_API_KEY=your_firebase_api_key
+
 FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+
 Make sure to replace the placeholders with your actual configuration details.
