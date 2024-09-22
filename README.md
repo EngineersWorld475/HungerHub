@@ -8,14 +8,23 @@ HungerHub is a MERN-stack food delivery application providing seamless ordering 
 Features
 ------------
 Dynamic User Interface: Built with React.js
+
 Modern Styling: Utilized Tailwind CSS and Flowbite components
+
 RESTful APIs: Implemented server-side logic using Node.js and Express.js
+
 Data Persistence: Managed application data with MongoDB
+
 User Authentication: Integrated Firebase for Google authentication
+
 Image Upload: Enabled through Firebase
+
 State Management: Employed React Redux Toolkit and Context API
+
 Search and Filter: Food items by category and price
+
 Payment Integration: Dummy payment system for testing
+
 Review System: Post reviews and like/dislike functionality
 
 Technologies Used
